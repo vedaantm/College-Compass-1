@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>College Compass</title>
+  <link rel="icon" href="collegecompass.jpg" type="image/jpg">
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+   
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body {
+      background-color: #f5f5f5;
+    }
+    /* header {
+      background: #0066cc;
+      padding: 15px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    } */
+    
+    header {
+      background: rgba(0, 51, 102, 0.75);
+      backdrop-filter: blur(10px);
+      padding: 18px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 600;
+    }
+    nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ffcc00;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+    }
+    .btn-signin, .btn-get-started {
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+    .btn-signin {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+    .btn-signin:hover {
+      background: white;
+      color: #0066cc;
+    }
+    .btn-get-started {
+      background: #ffcc00;
+      color: #0066cc;
+    }
+    .btn-get-started:hover {
+      background: #e6b800;
+    }
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 51, 102, 0.75);
+        backdrop-filter: blur(10px);
+        padding: 15px 0;
+        text-align: center;
+      }
+      nav ul.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: url('hero-background.jpg') no-repeat center center/cover;
+      color: white;
+      padding: 20px;
+      margin-top: 10px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    .hero p {
+      font-size: 20px;
+      max-width: 800px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      width: 60%;
+      margin-top: 20px;
+      background: white;
+      border-radius: 50px;
+      padding: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .search-box input {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 50px;
+      outline: none;
+    }
+    .search-box button {
+      padding: 12px;
+      background: #003366;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .search-options {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 40px 20px;
+      flex-wrap: wrap;
+    }
+    .search-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .search-container label {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+    .search-container input {
+      width: 250px;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+      background: white;
+    }
+    .search-container button {
+      margin-top: 10px;
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+    .comparison-section {
+      padding: 60px;
+      background-color: white;
+      text-align: center;
+    }
+    .comparison-section h2 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+    .comparison-tables {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+    .comparison-table {
+      width: 400px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .comparison-table h3 {
+      background: #0066cc;
+      color: white;
+      padding: 15px;
+      margin: 0;
+    }
+    .comparison-table ul {
+      list-style: none;
+      padding: 20px;
+      text-align: left;
+    }
+    .comparison-table ul li {
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .popular-colleges {
+      background: #fdfdfd;
+      padding: 120px 40px;
+      text-align: center;
+    }
+    .popular-colleges h2 {
+      font-size: 36px;
+      margin-bottom: 50px;
+    }
+    .carousel-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      gap: 30px;
+      padding-bottom: 20px;
+    }
+    .college-card {
+      min-width: 280px;
+      height: 450px;
+      flex-shrink: 0;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      scroll-snap-align: start;
+    }
+    .college-card img {
+      width: 100%;
+      height: 250px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      object-fit: cover;
+    }
+    .college-card .info {
+      padding: 18px;
+    }
+    .college-card .info h4 {
+      margin: 5px 0;
+      font-size: 20px;
+    }
+    .college-card .info p {
+      font-size: 15px;
+      color: #555;
+    }
+
+  </style>
+</head>
+<body>
+  <header style="
+  backdrop-filter: blur(12px);
+  background: rgba(0, 102, 204, 0.85);
+  padding: 18px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+">
+
+  <div class="logo" style="font-size: 26px; font-weight: 700; letter-spacing: 0.5px;">
+    🎓 College Compass
+  </div>
+
+  <nav style = "margin-left: auto;">
+    <ul class="nav-links" style="display: flex; gap: 28px; list-style: none;">
+      <li><a href="#" style="color: white; text-decoration: none; font-weight: 500; transition: 0.3s;">Home</a></li>
+      <li><a href="search.html" style="color: white; text-decoration: none; font-weight: 500; transition: 0.3s;">Search Colleges</a></li>
+      <li><a href="comparator.html" style="color: white; text-decoration: none; font-weight: 500; transition: 0.3s;">Compare</a></li>
+      <li><a href="didyouknow.html" style="color: white; text-decoration: none; font-weight: 500; transition: 0.3s;">Did you know!?</a></li>
+    </ul>
+  </nav>
+
+  <div class="nav-buttons" style="display: flex; gap: 12px;">
+    <!-- <a href="login_signup.html" class="btn-signin" style="
+      padding: 8px 20px;
+      border: 2px solid white;
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    ">Sign In</a> -->
+
+  </div>
+
+  <div class="menu-toggle" style="display: none; font-size: 28px; cursor: pointer;">☰</div>
+</header>
+
+  
+    <section class="hero" style="
+    background: url('cornell.jpg') no-repeat center center/cover;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* center horizontally */
+    padding: 100px 20px;
+    color: white;
+    text-align: center;
+    position: relative;
+  ">
+    <h1 style="margin-bottom: 20px;">Search for colleges that you can get into</h1>
+    
+    <p style="max-width: 700px; margin: 0 auto 30px; font-size: 18px;">
+      Discover your ideal college match with College Compass’s data-driven search features.
+      Make the most of our in-depth rankings and student reviews as you create your 2025 college list.
+    </p>
+    
+    <div class="search-box" style="position: relative; width: 60%; max-width: 600px;">
+      <input 
+        type="text" 
+        id="mainSearchInput" 
+        placeholder="Start typing a university name to explore..." 
+        autocomplete="off"
+        style="width: 100%; padding: 15px 20px; font-size: 16px; border: none; border-radius: 50px; outline: none;"
+      />
+      <div id="suggestions" 
+  style="
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    max-height: 240px;
+    overflow-y: auto;
+    display: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 10px;
+  ">
+</div>
+
+      <button 
+        onclick="searchCollege()" 
+        style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: #004080; border: none; border-radius: 50%; width: 40px; height: 40px; color: white; cursor: pointer; font-size: 18px;">
+        🔍
+      </button>
+    </div>
+  </section>
+  
+
+  <div style="
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 50px 40px;
+  background: #ffffffee;
+  border-radius: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  font-family: 'Inter', sans-serif;
+  color: #222;
+">
+  <h2 style="text-align: center; font-size: 30px; color: #003366; font-weight: 700;">🎯 Find Your Perfect University</h2>
+  <p style="text-align: center; font-size: 16px; color: #444; margin: 12px auto 40px; max-width: 600px;">
+    Enter your academic details to receive personalized university recommendations tailored to your profile.
+  </p>
+
+  <form id="recommendationForm">
+    <div style="display: flex; justify-content: center; gap: 25px; margin-bottom: 30px; flex-wrap: nowrap; flex-direction: row;">
+      <div style="display: flex; flex-direction: column;">
+        <label style="font-size: 15px; font-weight: 600; margin-bottom: 5px;">🎓 GRE Score</label>
+        <input type="text" id="greScore" placeholder="e.g., 320"
+          style="padding: 12px 16px; border-radius: 10px; border: 1px solid #ccc; width: 220px; font-size: 15px;" />
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <label style="font-size: 15px; font-weight: 600; margin-bottom: 5px;">📚 GPA</label>
+        <input type="text" id="gpa" placeholder="e.g., 3.8"
+          style="padding: 12px 16px; border-radius: 10px; border: 1px solid #ccc; width: 220px; font-size: 15px;" />
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <label style="font-size: 15px; font-weight: 600; margin-bottom: 5px;">💰 Budget</label>
+        <input type="number" id="budget" placeholder="in USD" min="20000" 
+          style="padding: 12px 16px; border-radius: 10px; border: 1px solid #ccc; width: 220px; font-size: 15px;" />
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <label style="font-size: 15px; font-weight: 600; margin-bottom: 5px;">📚 Course / Interest</label>
+        <input type="text" id="courseInterest" placeholder="Your interest"
+          style="padding: 12px 16px; border-radius: 10px; border: 1px solid #ccc; width: 220px; font-size: 15px;" />
+      </div>
+    </div>
+  
+    <!-- 🔘 Submit Button -->
+    <div style="text-align: center; margin-bottom: 60px;">
+      <button type="submit" style="padding: 12px 24px; background-color: #003366; color: white; font-size: 18px; border-radius: 10px; cursor: pointer;">
+        🎯 Recommend Universities
+      </button>
+    </div>
+  </form>
+  
+  <script>
+    document.getElementById('recommendationForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+  
+      const gre = parseFloat(document.getElementById('greScore').value);
+      const gpa = parseFloat(document.getElementById('gpa').value);
+      const budget = parseFloat(document.getElementById('budget').value);
+      const interest = document.getElementById('courseInterest').value;
+
+      // 🔒 Validation checks
+      if (isNaN(gre) || gre < 260 || gre > 340) {
+        alert("🚫 GRE must be between 260 and 340.");
+        return;
+      }
+
+      if (isNaN(gpa) || gpa < 0.1 || gpa > 4.0) {
+        alert("🚫 GPA must be between 0.1 and 4.0.");
+        return;
+      }
+
+      if (isNaN(budget) || budget < 20000) {
+        alert("🚫 Budget must be at least $20,000.");
+        return;
+      }
+
+      if (!interest) {
+        alert("🚫 Please enter your course or interest.");
+       return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/recommend', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ gre, gpa, budget, interest })
+        });
+  
+        if (response.ok) {
+          const recommendations = await response.json();
+  
+          // ✅ Structure the data properly with user_input + recommendations
+          const payload = {
+            user_input: { gre, gpa, budget, interest },
+            recommendations: recommendations
+          };
+  
+          // 💾 Save it to localStorage
+          localStorage.setItem("recommendationResults", JSON.stringify(payload));
+  
+          // 🚀 Redirect to results page
+          window.location.href = "results.html";
+        } else {
+          alert("Server error. Please try again.");
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+        alert("Could not connect to server.");
+      }
+    });
+  </script>
+    
+  <!-- SOP Generator Section -->
+  <div style="text-align: center; padding-top: 30px; border-top: 1px solid #ddd;">
+    <h3 style="font-size: 20px; color: #333; font-weight: 700; margin-bottom: 10px;">📝 Generate a Strong Statement of Purpose</h3>
+    <p style="font-size: 15px; color: #555; max-width: 600px; margin: 0 auto 20px;">
+      Let us help you craft a professional and personalized Statement of Purpose based on your academic goals and achievements.
+    </p>
+    <button onclick="window.location.href='http://localhost:5001'" style="
+      padding: 12px 24px;
+      background-color: #009688;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;">
+      ✍ Generate SOP
+      </button>
+
+  </div>
+</div>
+
+
+  <section class="comparison-section">
+    <h2>Compare Universities</h2>
+    <div class="comparison-tables">
+      <div class="comparison-table">
+        <h3>University A - Pros & Cons</h3>
+        <ul>
+          <li>✅ Strong research programs</li>
+          <li>✅ Excellent faculty</li>
+          <li>❌ High tuition fees</li>
+          <li>❌ Competitive admission</li>
+        </ul>
+      </div>
+      <div class="comparison-table">
+        <h3>University B - Pros & Cons</h3>
+        <ul>
+          <li>✅ Affordable tuition</li>
+          <li>✅ Friendly campus environment</li>
+          <li>❌ Fewer research opportunities</li>
+          <li>❌ Limited housing</li>
+        </ul>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+      <a href="comparator.html" 
+         style="text-decoration: none; background-color: #0066cc; color: white; padding: 12px 24px; border-radius: 6px; font-size: 16px; font-weight: bold;">
+        Compare
+      </a>
+    </div>
+  </section>
+
+  <section class="popular-colleges">
+    <h2>Popular IVY Leagues</h2>
+    <div class="carousel-container">
+        <div class="college-card">
+            <img src="brown.png" alt="College 1">
+            <div class="info">
+                <h4>Brown University</h4>
+                <p>Providence, RI</p>
+            </div>
+        </div>
+        <div class="college-card">
+            <img src="columbia.jpg" alt="College 2">
+            <div class="info">
+                <h4>Columbia University</h4>
+                <p>New York, NY</p>
+            </div>
+        </div>
+        <div class="college-card">
+            <img src="cornell.jpg" alt="College 3">
+            <div class="info">
+                <h4>Cornell University</h4>
+                <p>Ithaca, NY</p>
+            </div>
+        </div>
+        <div class="college-card">
+            <img src="darthmouth.jpg" alt="College 4">
+            <div class="info">
+                <h4>Dartmouth College</h4>
+                <p>Hanover, NH</p>
+            </div>
+        </div>
+        <div class="college-card">
+            <img src="harvard.jpg" alt="College 5">
+            <div class="info">
+                <h4>Harvard University</h4>
+                <p>Cambridge, MA</p>
+            </div>
+        </div>
+        <div class="college-card">
+            <img src="Stanford-University.jpg" alt="College 6">
+            <div class="info">
+                <h4>Stanford University</h4>
+                <p>Stanford, CA</p>
+            </div>
+        </div>
+        <div class="college-card">
+            <img src="upenn.jpg" alt="College 7">
+            <div class="info">
+                <h4>University of Pennsylvania</h4>
+                <p>Philadelphia, PA</p>
+            </div>
+        </div>
+        <div class="college-card">
+            <img src="princeton.jpg" alt="College 8">
+            <div class="info">
+                <h4>Princeton University</h4>
+                <p>Princeton, NJ</p>
+            </div>
+        </div>
+        <div class="college-card">
+            <img src="yale.jpg" alt="College 9">
+            <div class="info">
+                <h4>Yale University</h4>
+                <p>New Haven, CT</p>
+            </div>
+        </div>
+    </div>
+</section>
+  
+  </section>
+
+  <footer style="background:#003366; color:white; padding:60px 40px; display:flex; justify-content:space-between; flex-wrap:wrap;">
+    <div style="flex:1 1 200px; margin-bottom:20px;">
+      <h3 style="margin-bottom:10px;">College Compass</h3>
+      <p style="font-size:14px; line-height:1.6; max-width:300px;">Helping students make smart, data-driven decisions to find the best college fit since 2025.</p>
+    </div>
+    <div style="flex:1 1 150px; margin-bottom:20px;">
+      <h4 style="margin-bottom:10px;">Explore</h4>
+      <ul style="list-style:none; padding:0;">
+        <li><a href="search.html" style="color:white; text-decoration:none; font-size:14px;">Search Colleges</a></li>
+        <li><a href="comparator.html" style="color:white; text-decoration:none; font-size:14px;">Compare</a></li>
+        <li><a href="http://localhost:5001" style="color:white; text-decoration:none; font-size:14px;">Generate SOP</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    async function searchCollege() {
+      const query = document.getElementById('mainSearchInput').value.trim();
+      if (!query) {
+        alert('Please enter a university name');
+        return;
+      }
+  
+      try {
+        const res = await fetch(`/api/search?name=${encodeURIComponent(query)}`);
+        const data = await res.json();
+  
+        if (data.length > 0) {
+          const uni = data[0]; // first match
+          showUniversityPopup(uni);
+        } else {
+          alert('No universities found with that name.');
+        }
+      } catch (err) {
+        console.error('Search failed:', err);
+        alert('Failed to search universities.');
+      }
+    }
+  
+    function showUniversityPopup(uni) {
+      const oldPopup = document.getElementById('universityPopup');
+      if (oldPopup) oldPopup.remove();
+  
+      const popup = document.createElement('div');
+      popup.id = 'universityPopup';
+      popup.style.position = 'fixed';
+      popup.style.top = '50%';
+      popup.style.left = '50%';
+      popup.style.transform = 'translate(-50%, -50%)';
+      popup.style.width = '850px';
+      popup.style.background = 'white';
+      popup.style.boxShadow = '0 4px 30px rgba(0,0,0,0.2)';
+      popup.style.borderRadius = '18px';
+      popup.style.padding = '30px';
+      popup.style.zIndex = '2000';
+      popup.style.maxHeight = '90vh';
+      popup.style.overflowY = 'auto';
+      popup.style.animation = 'fadeIn 0.5s ease';
+  
+      const fields = {
+        "City": uni["city"],
+        "State": uni["state"],
+        "Acceptance Rate": uni["acceptance_rate"] ?? null,
+        "Graduation Rate": uni["graduation_rate"] ?? null,
+        "In-State Tuition": uni["in_state_tuition"] ? "$" + uni["in_state_tuition"] : null,
+        "Out-of-State Tuition": uni["out_of_state_tuition"] ? "$" + uni["out_of_state_tuition"] : null,
+        "Median Salary": uni["median_salary"] ? "$" + uni["median_salary"] : null,
+        "Average GPA": uni["average_gpa"] ?? null,
+        "Average GRE Score": uni["average_gre_score"] ?? null,
+        "QS Overall Score": uni["qs_overall_score"] ?? null,
+        "Courses Offered": uni["MS Courses Offered"] || uni["ms_courses_offered"] || null,
+
+      };
+  
+      let content = `
+        <h2 style="color: #004080; text-align:center; margin-bottom: 20px;">${uni["university_name"]}</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+      `;
+  
+      for (const key in fields) {
+        if (fields[key] !== null && fields[key] !== '') {
+          let extra = '';
+          const value = parseFloat(fields[key]);
+  
+          // 🎯 Corrected progress bar logic
+          if (!isNaN(value)) {
+            if (key === "Acceptance Rate" || key === "Graduation Rate" || key === "QS Overall Score") {
+              extra = `
+                <div style="background: #e0e0e0; height: 8px; width: 100%; border-radius: 5px; margin-top: 8px;">
+                  <div style="width: ${value}%; background: #0066cc; height: 100%; border-radius: 5px;"></div>
+                </div>
+              `;
+            } else if (key === "Average GPA") {
+              const percent = (value / 4) * 100;
+              extra = `
+                <div style="background: #e0e0e0; height: 8px; width: 100%; border-radius: 5px; margin-top: 8px;">
+                  <div style="width: ${percent}%; background: #28a745; height: 100%; border-radius: 5px;"></div>
+                </div>
+              `;
+            } else if (key === "Average GRE Score") {
+              const percent = (value / 340) * 100;
+              extra = `
+                <div style="background: #e0e0e0; height: 8px; width: 100%; border-radius: 5px; margin-top: 8px;">
+                  <div style="width: ${percent}%; background: #ff9933; height: 100%; border-radius: 5px;"></div>
+                </div>
+              `;
+            }
+          }
+  
+          content += `
+            <div style="flex: 1 1 40%; background: #f9f9f9; padding: 20px; border-radius: 12px;">
+              <h4 style="color: #0056b3; margin-bottom: 5px;">${key}</h4>
+              <p style="font-size: 18px; font-weight: bold;">${fields[key]}</p>
+              ${extra}
+            </div>
+          `;
+        }
+      }
+  
+      content += `</div>
+        <div style="text-align: center; margin-top: 30px;">
+          <button onclick="document.getElementById('universityPopup').remove()" 
+            style="padding: 12px 24px; background: #0066cc; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer;">
+            Close
+          </button>
+        </div>`;
+  
+      popup.innerHTML = content;
+      document.body.appendChild(popup);
+    }
+  
+    const style = document.createElement('style');
+    style.innerHTML = `
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translate(-50%, -60%); }
+        to { opacity: 1; transform: translate(-50%, -50%); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    let universityNames = [];
+
+// Fetch university names when page loads
+document.addEventListener("DOMContentLoaded", async () => {
+  try {
+    const res = await fetch("/api/universities");
+    const data = await res.json();
+    universityNames = data.map(u => u.university_name);
+  } catch (err) {
+    console.error('Failed to fetch university list:', err);
+  }
+});
+
+const searchInput = document.getElementById('mainSearchInput');
+const suggestionsBox = document.getElementById('suggestions');
+
+searchInput.addEventListener('input', () => {
+  const input = searchInput.value.trim().toLowerCase();
+  suggestionsBox.innerHTML = '';
+
+  if (input.length === 0) {
+    suggestionsBox.style.display = 'none';
+    return;
+  }
+
+  const filtered = universityNames.filter(name => name.toLowerCase().includes(input)).slice(0, 8); // show max 8
+
+  if (filtered.length === 0) {
+    suggestionsBox.style.display = 'none';
+    return;
+  }
+
+  filtered.forEach(name => {
+  const div = document.createElement('div');
+  div.textContent = name;
+  div.style.padding = '12px 16px';
+  div.style.cursor = 'pointer';
+  div.style.borderBottom = '1px solid #f1f1f1';
+  div.style.textAlign = 'left'; /* 👈 left align */
+  div.style.fontSize = '16px';
+  div.style.color = '#333';
+  div.style.backgroundColor = 'white';
+  div.style.transition = 'background 0.2s';
+
+  div.addEventListener('mouseenter', () => {
+    div.style.backgroundColor = '#f5f5f5'; // light gray on hover
+  });
+  div.addEventListener('mouseleave', () => {
+    div.style.backgroundColor = 'white'; // normal white
+  });
+  div.addEventListener('click', () => {
+    searchInput.value = name;
+    suggestionsBox.style.display = 'none';
+  });
+
+  suggestionsBox.appendChild(div);
+});
+
+
+  suggestionsBox.style.display = 'block';
+});
+
+// Hide suggestions when clicked outside
+document.addEventListener('click', (e) => {
+  if (!searchInput.contains(e.target) && !suggestionsBox.contains(e.target)) {
+    suggestionsBox.style.display = 'none';
+  }
+});
+
+  </script>
+  
+  
+</body>
+</html>

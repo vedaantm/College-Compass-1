@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Compass - Login & Signup</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      padding: 40px;
+      background: linear-gradient(135deg, #00509E, #89CFF0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: white;
+    }
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .logo-placeholder {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border-radius: 50%;
+    }
+    h1 {
+      font-size: 32px;
+      margin: 0;
+    }
+    .form-container {
+      max-width: 500px;
+      width: 100%;
+      background: white;
+      padding: 50px 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      text-align: center;
+      color: black;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      padding: 14px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 30px;
+      background: #003366;
+      color: white;
+      border: none;
+      padding: 18px 22px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #002244;
+    }
+    .switch {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .switch a {
+      color: #003366;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo-container">
+    <div class="logo-placeholder"></div>
+    <h1>College Compass</h1>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div class="form-container" id="login-form">
+    <h2>Login</h2>
+    <form>
+      <label for="email">Email</label>
+      <input type="email" id="login-email" placeholder="Enter your email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="login-password" placeholder="Enter your password" required />
+
+      <button type="submit">Login</button>
+    </form>
+    <div class="switch">
+      Don't have an account? <a href="#" onclick="toggleForms('signup')">Sign up</a>
+    </div>
+  </div>
+
+  <!-- SIGNUP FORM -->
+  <div class="form-container" id="signup-form" style="display:none;">
+    <h2>Sign Up</h2>
+    <form>
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter your full name" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="signup-email" placeholder="Enter your email" required />
+
+      <label for="password">Password</label>
+      <input type="password" id="signup-password" placeholder="Create a password" required />
+
+      <label for="confirm">Confirm Password</label>
+      <input type="password" id="confirm" placeholder="Confirm your password" required />
+
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="switch">
+      Already have an account? <a href="#" onclick="toggleForms('login')">Log in</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleForms(target) {
+    document.getElementById('login-form').style.display = target === 'login' ? 'block' : 'none';
+    document.getElementById('signup-form').style.display = target === 'signup' ? 'block' : 'none';
+  }
+
+  window.onload = () => {
+    // 🔐 SIGNUP logic
+    document.querySelector('#signup-form form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const confirm = document.getElementById('confirm').value;
+
+      if (password !== confirm) {
+        alert("Passwords don't match!");
+        return;
+      }
+
+      try {
+        console.log('Attempting signup:', { name, email });
+        const res = await fetch('/api/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password }),
+        });
+        const data = await res.json();
+        console.log('Signup response:', res.status, data);
+
+        if (res.ok) {
+          alert('Signup successful! Please login.');
+          toggleForms('login');
+        } else {
+          alert(data.error || 'Signup failed');
+        }
+      } catch (err) {
+        console.error('Signup error:', err);
+        alert('Something went wrong during signup!');
+      }
+    });
+
+    // 🔓 LOGIN logic
+    document.querySelector('#login-form form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      try {
+        console.log('Attempting login with:', email);
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const text = await res.text(); // Read raw text to catch non-JSON errors
+        console.log('Raw login response:', res.status, text);
+
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (e) {
+          console.error('Error parsing JSON:', e);
+          throw new Error('Invalid response from server');
+        }
+
+        if (res.ok) {
+          alert(`Welcome, ${data.name}!`);
+          window.location.href = '/homepage.html';
+        } else {
+          alert(data.error || 'Login failed');
+        }
+      } catch (err) {
+        console.error('Login error:', err);
+        alert(`Something went wrong: ${err.message}`);
+      }
+    });
+  };
+
+  </script>
+
+</body>
+</html>

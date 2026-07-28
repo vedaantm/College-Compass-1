@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="collegecompass.jpg" type="image/jpg">
+  <meta charset="UTF-8" />
+  <title>Generate Your SOP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #89CFF0 0%, #4682B4 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    form {
+      background: #ffffffee;
+      padding: 48px;
+      border-radius: 25px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 750px;
+      backdrop-filter: blur(6px);
+      box-sizing: border-box;
+      margin-top: 120px;
+    }
+    h2 {
+      text-align: center;
+      color: #003366;
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+    label {
+      display: block;
+      margin: 20px 0 10px;
+      font-weight: 500;
+      color: #222;
+    }
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid #bbb;
+      transition: all 0.3s ease;
+      background-color: #e6f0fa;
+      box-sizing: border-box;
+    }
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: #00509e;
+      background-color: #ffffff;
+      box-shadow: 0 0 8px rgba(0, 80, 158, 0.3);
+      outline: none;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .alert {
+      color: #fff;
+      background-color: #d9534f;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      display: none;
+    }
+    button {
+      margin-top: 35px;
+      padding: 16px;
+      background: linear-gradient(135deg, #0077be, #003f88);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+    button:hover {
+      background: linear-gradient(135deg, #003f88, #001f4d);
+      transform: scale(1.02);
+    }
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 100%;
+    width: 100vw;
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    overflow: hidden;
+    z-index: 999;
+    box-sizing: border-box;
+  }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden; /* This part’s critical for page-fit */
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: rgba(0, 51, 102, 0.75);
+        backdrop-filter: blur(10px);
+        padding: 15px 0;
+        text-align: center;
+      }
+      nav ul.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+    }
+    nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ffcc00;
+    }
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+    }
+    .btn-signin, .btn-get-started {
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+    .btn-signin {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+    .btn-signin:hover {
+      background: white;
+      color: #0066cc;
+    }
+    .btn-get-started {
+      background: #ffcc00;
+      color: #0066cc;
+    }
+    .btn-get-started:hover {
+      background: #e6b800;
+    }
+
+
+  </style>
+  <script>
+    function submitForm(event) {
+      event.preventDefault();
+
+      const gpa = parseFloat(document.getElementById("gpa").value);
+      const gre = parseInt(document.getElementById("gre").value);
+      const alertBox = document.getElementById("alertBox");
+
+      alertBox.style.display = "none";
+      alertBox.textContent = "";
+
+      if (isNaN(gpa) || gpa < 0 || gpa > 10) {
+        alertBox.textContent = "⚠ GPA must be between 0 and 10.";
+        alertBox.style.display = "block";
+        return false;
+      }
+
+      if (isNaN(gre) || gre < 260 || gre > 340) {
+        alertBox.textContent = "⚠ GRE Score must be between 260 and 340.";
+        alertBox.style.display = "block";
+        return false;
+      }
+
+      const formData = {
+        currentUniversity: document.getElementById("currentUniversity").value,
+        university: document.getElementById("university").value,
+        intake: document.getElementById("intake").value,
+        course: document.getElementById("course").value,
+        background: document.getElementById("background").value,
+        experience: document.getElementById("experience").value,
+        goals: document.getElementById("goals").value,
+        GPA: gpa,
+        GRE: gre,
+        Publications: document.getElementById("publications").value,
+        Faculty: document.getElementById("faculty").value
+      };
+
+      localStorage.setItem("sopFormData", JSON.stringify(formData));
+
+      window.location.href = "/buffer";
+    }
+  </script>
+</head>
+<body>
+  <header style="
+  backdrop-filter: blur(12px);
+  background: rgba(0, 102, 204, 0.85);
+  padding: 18px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+">
+
+  <div class="logo" style="font-size: 26px; font-weight: 700; letter-spacing: 0.5px;">
+    🎓 College Compass
+  </div>
+
+  <nav>
+    <ul class="nav-links" style="display: flex; gap: 28px; list-style: none;">
+      <li><a href="http://localhost:3000/homepage.html" style="color: white; text-decoration: none; font-weight: 500; transition: 0.3s;">Home</a></li>
+      <li><a href="http://localhost:3000/dashboard.html" style="color: white; text-decoration: none; font-weight: 500; transition: 0.3s;">Search Colleges</a></li>
+      <li><a href="http://localhost:3000/comparator.html" style="color: white; text-decoration: none; font-weight: 500; transition: 0.3s;">Compare</a></li>
+    </ul>
+  </nav>
+
+  <div class="menu-toggle" style="display: none; font-size: 28px; cursor: pointer;">☰</div>
+</header>
+
+  <form onsubmit="submitForm(event)" action="/buffer" method="post">
+    <h2>Generate Your SOP</h2>
+
+    <div id="alertBox" class="alert"></div>
+
+    <label for="currentUniversity">Current University:</label>
+    <input type="text" id="currentUniversity" name="currentUniversity" placeholder="e.g., Mumbai University">
+
+    <label for="university">Target University:</label>
+    <input type="text" id="university" name="university" placeholder="e.g., University of Toronto">
+
+    <label for="intake">Preferred Intake:</label>
+    <select id="intake" name="intake">
+      <option value="">Select intake</option>
+      <option value="Fall">Fall</option>
+      <option value="Spring">Spring</option>
+      <option value="Summer">Summer</option>
+      <option value="Winter">Winter</option>
+    </select>
+
+    <label for="course">Course to Apply:</label>
+    <input type="text" id="course" name="course" placeholder="e.g., MS in Computer Science">
+
+    <label for="background">Background:</label>
+    <textarea id="background" name="background" rows="4" placeholder="Briefly describe your educational background"></textarea>
+
+    <label for="experience">Experience:</label>
+    <textarea id="experience" name="experience" rows="4" placeholder="Work experience, internships, or projects"></textarea>
+
+    <label for="goals">Goals:</label>
+    <textarea id="goals" name="goals" rows="4" placeholder="Career aspirations and what you aim to achieve"></textarea>
+
+    <label for="gpa">GPA (out of 4 or 10):</label>
+    <input type="number" step="0.01" id="gpa" name="gpa" min="0" max="10" placeholder="e.g., 8.5 or 3.7">
+
+    <label for="gre">GRE Score (260 - 340):</label>
+    <input type="number" id="gre" name="gre" min="260" max="340" placeholder="e.g., 320">
+
+    <label for="publications">Publications:</label>
+    <textarea id="publications" name="publications" rows="3" placeholder="List of research papers or publications"></textarea>
+
+    <label for="faculty">Faculty of Interest:</label>
+    <input type="text" id="faculty" name="faculty" placeholder="e.g., Dr. John Smith">
+
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>

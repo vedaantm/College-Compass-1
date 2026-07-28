@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="collegecompass.jpg" type="image/jpg">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>College Compass - University Comparison</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #e6f2ff;
+      color: #333;
+    }
+
+    header {
+      background: #0066cc;
+      padding: 15px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #ffcc00;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 15px;
+    }
+
+    .btn-signin, .btn-get-started {
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+
+    .btn-signin {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+
+    .btn-signin:hover {
+      background: white;
+      color: #0066cc;
+    }
+
+    .btn-get-started {
+      background: #ffcc00;
+      color: #0066cc;
+    }
+
+    .btn-get-started:hover {
+      background: #e6b800;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #0066cc;
+        padding: 15px 0;
+        text-align: center;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    .search-section {
+      margin-top: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      padding: 40px 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .search-box input {
+      padding: 10px 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      width: 320px;
+    }
+
+    .search-box button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .comparison-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding: 0 20px 60px;
+    }
+
+    .college-box {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 320px;
+    }
+
+    .college-box h2 {
+      color: #0066cc;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .info-list {
+      list-style: none;
+      line-height: 1.8;
+    }
+
+    .info-list li {
+      border-bottom: 1px solid #eee;
+      padding: 8px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      font-size: 14px;
+      color: #666;
+      background-color: #f0f8ff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">College Compass</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="homepage.html">Home</a></li>
+        <li><a href="dashboard.html">Search Colleges</a></li>
+        <li><a href="comparator.html">Compare</a></li>
+        
+      </ul>
+    </nav>
+    <!-- <div class="nav-buttons">
+      <a href="login_signup.html" class="btn-signin">Sign In</a>
+      <a href="login_signup.html" class="btn-get-started">Get Started</a>
+    </div> -->
+    <div class="menu-toggle">☰</div>
+  </header>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <div class="search-box">
+      <input type="text" id="universityA" placeholder="Search University A">
+      <button onclick="compareUniversities('A')">Search</button>
+    </div>
+    <div class="search-box">
+      <input type="text" id="universityB" placeholder="Search University B">
+      <button onclick="compareUniversities('B')">Search</button>
+    </div>
+  </div>
+
+  <!-- Comparison Section -->
+  <div class="comparison-container">
+    <div class="college-box" id="boxA">
+      <h2 id="nameA">University A</h2>
+      <ul class="info-list">
+        <li><strong>Location:</strong> <span id="locationA">City A, State A</span></li>
+        <li><strong>Cost:</strong> <span id="costA">$30,000/year</span></li>
+       
+        <li><strong>Acceptance Rate:</strong> <span id="acceptanceA">40%</span></li>
+        <li><strong>Average GPA:</strong> <span id="gpaA">3.5</span></li>
+      </ul>
+    </div>
+
+    <div class="college-box" id="boxB">
+      <h2 id="nameB">University B</h2>
+      <ul class="info-list">
+        <li><strong>Location:</strong> <span id="locationB">City B, State B</span></li>
+        <li><strong>Cost:</strong> <span id="costB">$25,000/year</span></li>
+      
+        <li><strong>Acceptance Rate:</strong> <span id="acceptanceB">55%</span></li>
+        <li><strong>Average GPA:</strong> <span id="gpaB">3.2</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>©️ 2025 College Compass. All rights reserved.</footer>
+
+  <script>
+    async function compareUniversities(side) {
+      const inputId = side === 'A' ? 'universityA' : 'universityB';
+      const name = document.getElementById(inputId).value.trim();
+      if (!name) return;
+
+      try {
+        const response = await fetch(`/api/get_university?name=${encodeURIComponent(name)}`);
+        const data = await response.json();
+
+        if (data.status === 'success') {
+          const uni = data.data;
+          document.getElementById('name' + side).textContent = uni["University Name"];
+          document.getElementById('location' + side).textContent = `${uni.City}, ${uni.State}`;
+          document.getElementById('cost' + side).textContent = uni["Cost of Attendance"] || 'N/A';
+          
+          document.getElementById('acceptance' + side).textContent = uni["Acceptance Rate"] || 'N/A';
+          document.getElementById('gpa' + side).textContent = uni["Average GPA"] || 'N/A';
+
+        } else {
+          alert(data.message);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Failed to fetch university data.');
+      }
+    }
+  </script>
+</body>
+</html>

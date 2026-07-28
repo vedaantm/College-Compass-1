@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Generated SOP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/docx@7.1.0/build/index.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #89CFF0 0%, #4682B4 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: #ffffffee;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 800px;
+            backdrop-filter: blur(6px);
+            box-sizing: border-box;
+        }
+        h2 {
+            color: #003366;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        pre {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            max-height: 400px;
+            font-size: 16px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #0077be, #003f88);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: transform 0.2s ease, background 0.3s ease;
+            width: 48%;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #003f88, #001f4d);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Generated SOP</h2>
+        <pre id="sopContent"></pre>
+        <div class="buttons">
+            <button onclick="goBack()">Go Back</button>
+            <button onclick="downloadSOP()">Download SOP</button>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            const sopContent = localStorage.getItem("generatedSOP");
+            if (sopContent) {
+                // Remove content between <think> and </think> tags
+                const cleanedSOP = removeThinkContent(sopContent);
+                document.getElementById("sopContent").textContent = cleanedSOP;
+            } else {
+                document.getElementById("sopContent").textContent = "Error: No SOP found!";
+            }
+        };
+    
+        // Function to remove content between <think> and </think>
+        function removeThinkContent(text) {
+            return text.replace(/<think>.*?<\/think>/gs, '');  // 'gs' flags for global & dot-all matching
+        }
+    
+        function downloadSOP() {
+            console.log("Download button clicked!");
+            const sopText = document.getElementById("sopContent").textContent.trim();
+            if (!sopText) {
+                alert("No SOP content available to download!");
+                return;
+            }
+    
+            const doc = new docx.Document({
+                sections: [{
+                    properties: {},
+                    children: [
+                        new docx.Paragraph({
+                            text: "Statement of Purpose",
+                            heading: docx.HeadingLevel.HEADING_1,
+                            alignment: docx.AlignmentType.CENTER,
+                            spacing: { after: 300 }
+                        }),
+                        new docx.Paragraph({
+                            text: sopText,
+                            spacing: { after: 200 }
+                        })
+                    ]
+                }]
+            });
+    
+            docx.Packer.toBlob(doc).then(blob => {
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = "Generated_SOP.docx";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }).catch(error => {
+                console.error("Error generating DOCX:", error);
+                alert("Failed to download SOP. Please try again.");
+            });
+        }
+    
+        function goBack() {
+            window.location.replace("/");
+        }
+    </script>
+    
+</body>
+</html>

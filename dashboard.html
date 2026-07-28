@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="collegecompass.jpg" type="image/jpg">
+  <meta charset="UTF-8">
+  <title>College Compass Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f7fa;
+    }
+
+    h1 {
+      text-align: center;
+      padding: 20px 0;
+      background-color: #0047ab;
+      color: white;
+      margin: 0;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    th {
+      background-color: #f0f4f8;
+      font-weight: 600;
+      color: #333;
+    }
+
+    tr:hover {
+      background-color: #f9f9f9;
+    }
+
+    .course-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .course-item {
+      background-color: #e0f0ff;
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 0.85em;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 768px) {
+      th, td {
+        font-size: 0.85em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Universities Dashboard</h1>
+  <!-- <div class="search-container">
+    <input type="text" id="searchInput" placeholder="🔍 Search by university name...">
+  </div> -->
+
+  <!-- Location Search Box -->
+  <!-- <input type="text" id="locationSearchInput" placeholder="📍 Search by location (e.g., California)"   
+  style="padding: 10px 16px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; width: 280px;"> -->
+
+  <div style="display: flex; justify-content: flex-end; align-items: center; gap: 20px; padding: 20px 40px;">
+    <!-- Search by Location -->
+    <input 
+      type="text" 
+      id="locationSearchInput" 
+      placeholder="📍 Search by location (e.g., California)" 
+      style="padding: 10px 16px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; width: 280px;" 
+    />
+
+    <!-- Search by University Name -->
+    <input 
+      type="text" 
+      id="searchInput" 
+      placeholder="🔍 Search by university name..." 
+      style="padding: 10px 16px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; width: 280px;" 
+    />
+  </div>
+
+  <div class="table-container">
+    <table id="universityTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Acceptance Rate</th>
+          <th>In-State Tuition</th>
+          <th>Out-of-State Tuition</th>
+          <th>Cost of Attendance</th>
+          <th>Graduation Rate</th>
+          <th>Median Salary</th>
+          <th>Average GPA</th>
+          <th>Average GRE Score</th>
+          <th>2025 Rank</th>
+          <th>2024 Rank</th>
+          <th>Location</th>
+          <th>Location Full</th>
+          <th>Size</th>
+          <th>Academic Reputation</th>
+          <th>Employer Reputation</th>
+          <th>Faculty Student</th>
+          <th>Citations per Faculty</th>
+          <th>International Faculty</th>
+          <th>International Students</th>
+          <th>International Research Network</th>
+          <th>Employment Outcomes</th>
+          <th>Sustainability</th>
+          <th>QS Overall Score</th>
+          <th>MS Courses Offered</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

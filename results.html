@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>University Match Results</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #e6f2ff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #004080;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .result-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .uni-card {
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: transform 0.2s;
+    }
+
+    .uni-card:hover {
+      transform: scale(1.01);
+    }
+
+    .uni-header {
+      font-size: 20px;
+      font-weight: bold;
+      color: #004080;
+    }
+
+    .uni-section {
+      margin: 10px 0;
+      font-size: 15px;
+      color: #333;
+    }
+
+    .score-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎯 Top Hybrid University Matches</h1>
+
+  <div class="result-container" id="results"></div>
+
+  <script>
+    function loadResults() {
+      const data = JSON.parse(localStorage.getItem("recommendationResults") || "{}");
+      const user = data.user_input || {};
+      const universities = data.recommendations || [];
+
+      const resultsContainer = document.getElementById("results");
+      resultsContainer.innerHTML = "";
+
+      // Display user input
+      const userSection = document.createElement("div");
+      userSection.className = "uni-card";
+      userSection.innerHTML = `
+        <div class="uni-header">🔍 Your Inputs</div>
+        <div class="uni-section">🎯 GRE: ${user.gre} | 📚 GPA: ${user.gpa} | 💸 Budget: $${user.budget}</div>
+        <div class="uni-section">📘 Interest: ${user.interest}</div>
+      `;
+      resultsContainer.appendChild(userSection);
+
+      // Display university matches
+      universities.forEach(uni => {
+        const card = document.createElement("div");
+        card.className = "uni-card";
+        card.innerHTML = `
+          <div class="uni-header">🎓 ${uni.University}</div>
+          <div class="uni-section">📘 Courses Offered: ${uni["Courses Offered"]}</div>
+          <div class="uni-section">💡 Most Relevant Course: <strong>${uni["Best Match"]}</strong></div>
+          <div class="uni-section">💰 Tuition: $${uni.Tuition} | GPA: ${uni.GPA} | GRE: ${uni.GRE}</div>
+          <div class="score-row">
+            <span>📊 QS Score Match: ${uni["Predicted QS Score"]}</span>
+            <span>🏆 Uni QS: ${uni["University QS Score"]}</span>
+            <span>🤝 Course Match: ${uni["Course Match Score"]}%</span>
+          </div>
+        `;
+        resultsContainer.appendChild(card);
+      });
+
+      localStorage.removeItem("recommendationResults");
+    }
+
+    loadResults();
+  </script>
+
+</body>
+</html>

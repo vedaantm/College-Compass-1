@@ -1,0 +1,16 @@
+# Node
+node_modules/
+package-lock.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# The pretrained FastText model is ~7GB — never commit it.
+# ml-service/app.py downloads/loads it at runtime; see README for setup.
+ml-service/cc.en.300.bin
+
+# OS
+.DS_Store
